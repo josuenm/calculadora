@@ -123,9 +123,11 @@ main {
                 &.number {
                     color: var(--gray);
 
-                    transition: ease all .4s;
-                    &:hover {
-                        color: #000;
+                    @media only screen and (min-width: 1119.99px) {
+                        transition: ease all .4s;
+                        &:hover {
+                            color: #000;
+                        }
                     }
                 }
             }

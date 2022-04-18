@@ -150,12 +150,16 @@ main .calculator .keyboard button:active {
 
 main .calculator .keyboard button.number {
   color: var(--gray);
-  -webkit-transition: ease all .4s;
-  transition: ease all .4s;
 }
 
-main .calculator .keyboard button.number:hover {
-  color: #000;
+@media only screen and (min-width: 1119.99px) {
+  main .calculator .keyboard button.number {
+    -webkit-transition: ease all .4s;
+    transition: ease all .4s;
+  }
+  main .calculator .keyboard button.number:hover {
+    color: #000;
+  }
 }
 
 main .calculator .keyboard .numbers {
