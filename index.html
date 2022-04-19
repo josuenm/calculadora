@@ -16,7 +16,13 @@
     <title>Calculadora Neomorphic</title>
 </head>
 <body>
+    <header>
+        <button class="toggleButton" type="button">
+            <div class="bar"></div>
+        </button>
+    </header>
     <main>
+
         <form class="calculator" onsubmit="handleSubmit(event)">
             <div class="header">
                 <div class="time"></div>
@@ -30,7 +36,7 @@
                 </div>
             </div>
 
-            <input type="text" class="screen" value="">
+            <input type="text" class="screen">
 
             <div class="keyboard">
                     <button onclick="clean()"> AC </button>
