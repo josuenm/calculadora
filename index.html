@@ -23,7 +23,7 @@
     </header>
     <main>
 
-        <form class="calculator" onsubmit="handleSubmit(event)">
+        <form class="calculator">
             <div class="header">
                 <div class="time"></div>
                 <div class="middle">
@@ -36,60 +36,40 @@
                 </div>
             </div>
 
-            <input type="text" class="screen">
+            <input type="text" class="screen" disabled>
 
             <div class="keyboard">
-                    <button onclick="clean()"> AC </button>
-                    <button onclick="deleteValue()"> < </button>
-                    <button onclick="insertValue('%')"> % </button>
-                    <button onclick="insertValue('/')"> &divide; </button>
+                    <button class="clean"> AC </button>
+                    <button class="delete"> < </button>
+                    <button onclick="insertOperator('%')"> % </button>
+                    <button onclick="insertOperator('/')"> &divide; </button>
                     
                     <div class="numbers">
                         <div class="row">
-                            <button onclick="insertValue('7')" class="number"> 
-                                7 
-                            </button>
-                            <button onclick="insertValue('8')" class="number">
-                                8 
-                            </button>
-                            <button onclick="insertValue('9')" class="number">
-                                9 
-                            </button>
+                            <button class="number">7</button>
+                            <button class="number">8</button>
+                            <button class="number">9</button>
                         </div>
                         <div class="row">
-                            <button onclick="insertValue('4')" class="number">
-                                4 
-                            </button>
-                            <button onclick="insertValue('5')" class="number">
-                                5 
-                            </button>
-                            <button onclick="insertValue('6')" class="number">
-                                6 
-                            </button>
+                            <button class="number">4</button>
+                            <button class="number">5</button>
+                            <button class="number">6</button>
                         </div>
                         <div class="row">
-                            <button onclick="insertValue('1')" class="number">
-                                1 
-                            </button>
-                            <button onclick="insertValue('2')" class="number">
-                                2 
-                            </button>
-                            <button onclick="insertValue('3')" class="number">
-                                3 
-                            </button>
+                            <button class="number">1</button>
+                            <button class="number">2</button>
+                            <button class="number">3</button>
                         </div>
                         <div class="row">
-                            <button onclick="insertValue('0')" class="number">
-                                0 
-                            </button>
-                            <button onclick="insertValue('.')"> . </button>
-                            <button onclick="insertValue('+')"> + </button>
+                            <button class="number">0</button>
+                            <button onclick="insertOperator('.')"> . </button>
+                            <button onclick="insertOperator('+')"> + </button>
                         </div>
                     </div>
                     <div class="others">
-                        <button onclick="insertValue('*')"> &times; </button>
-                        <button onclick="insertValue('-')"> &ndash; </button>
-                        <button onclick="result()" class="result"> = </button>
+                        <button onclick="insertOperator('*')"> &times; </button>
+                        <button onclick="insertOperator('-')"> &ndash; </button>
+                        <button class="result"> = </button>
                     </div>
             </div>
         </form>

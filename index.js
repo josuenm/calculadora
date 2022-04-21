@@ -7,37 +7,76 @@ const time = hours + ':' + minutes;
 document.querySelector('.time').innerHTML = time;
 
 const inputScreen = document.querySelector('.screen');
+inputScreen.value = '0';
 
 inputScreen.addEventListener('keypress', (e) => {
-  if (/^[a-zA-Z]+$/.test(e.key)) {
-    e.preventDefault();
+  e.preventDefault();
+});
+
+let freeOperator = false;
+
+function insertOperator(operator) {
+  if (freeOperator && inputScreen.value !== '0') {
+    inputScreen.value += operator;
+    freeOperator = false;
+  }
+}
+
+document.querySelectorAll('.number').forEach((item) => {
+  item.addEventListener('click', ({ target }) => {
+    let indexOfDefaultNumber = inputScreen.value.indexOf('0');
+
+    if (target.innerText !== '0' && indexOfDefaultNumber === 0) {
+      inputScreen.value = target.innerHTML;
+      freeOperator = true;
+      return;
+    }
+
+    if (
+      target.innerText !== '0' &&
+      inputScreen.value.length === 2 &&
+      indexOfDefaultNumber === 1
+    ) {
+      inputScreen.value = inputScreen.value.replace('0', target.innerHTML);
+      freeOperator = true;
+      return;
+    }
+
+    if (target.innerText !== '0' && indexOfDefaultNumber === -1) {
+      inputScreen.value += target.innerHTML;
+      freeOperator = true;
+    }
+  });
+});
+
+document.querySelector('.delete').addEventListener('click', () => {
+  if (inputScreen.value.length === 1) {
+    inputScreen.value = '0';
+    return;
+  }
+
+  if (inputScreen.value.length > 1) {
+    inputScreen.value = inputScreen.value.slice(0, -1);
   }
 });
 
-function handleSubmit(e) {
-  e.preventDefault();
-}
+document.querySelector('.clean').addEventListener('click', () => {
+  inputScreen.value = '0';
+  freeOperator = true;
+});
 
-function insertValue(value) {
-  inputScreen.value += value;
-}
-
-function deleteValue() {
-  inputScreen.value = inputScreen.value.slice(0, -1);
-}
-
-function clean() {
-  inputScreen.value = '';
-}
-
-function result() {
+document.querySelector('.result').addEventListener('click', () => {
   if (inputScreen.value.length > 0) {
     inputScreen.value = eval(inputScreen.value);
   }
-}
+});
+
+document.querySelector('.calculator').addEventListener('submit', (e) => {
+  e.preventDefault();
+});
 
 function setDark() {
-  document.documentElement.style.setProperty('--background', '#121212');
+  document.documentElement.style.setProperty('--background', '#090909');
   document.documentElement.style.setProperty('--primary-background', '#101010');
   document.documentElement.style.setProperty('--middle-structure', '#aaaa');
   document.documentElement.style.setProperty('--side-structure', '#fff');
@@ -76,7 +115,7 @@ function setLight() {
   document.documentElement.style.setProperty('--primary-background', '#e8eaec');
   document.documentElement.style.setProperty('--middle-structure', '#000');
   document.documentElement.style.setProperty('--side-structure', '#000');
-  document.documentElement.style.setProperty('--hover', '#fff');
+  document.documentElement.style.setProperty('--hover', '#000');
   document.documentElement.style.setProperty('--text-input-color', '#000');
 
   document.documentElement.style.setProperty('--toggle-background', '#e8eaec');
@@ -106,22 +145,44 @@ function setLight() {
   );
 }
 
+function verifyTheme() {
+  let button = document.querySelector('.toggleButton');
+
+  if (localStorage.getItem('theme')) {
+    switch (localStorage.getItem('theme')) {
+      case 'light':
+        button.classList.remove('active');
+        setLight();
+        break;
+
+      case 'dark':
+        button.classList.add('active');
+        setDark();
+        break;
+
+      default:
+        break;
+    }
+  }
+}
+verifyTheme();
+
 document
   .querySelector('.toggleButton')
   .addEventListener('click', ({ target }) => {
     let bar = document.querySelector('.toggleButton .bar');
 
-    let theme = JSON.parse(localStorage.getItem('theme'));
+    let theme = localStorage.getItem('theme');
 
     if (target.classList.contains('active')) {
       setLight();
       target.classList.remove('active');
       bar.classList.remove('active');
-      JSON.stringify(localStorage.setItem('theme', false));
+      JSON.stringify(localStorage.setItem('theme', 'light'));
     } else {
       setDark();
       target.classList.add('active');
       bar.classList.add('active');
-      JSON.stringify(localStorage.setItem('theme', true));
+      JSON.stringify(localStorage.setItem('theme', 'dark'));
     }
   });

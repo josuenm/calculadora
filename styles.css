@@ -26,8 +26,8 @@
 }
 
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 4px;
+  height: 4px;
   border-radius: 3rem;
 }
 
@@ -36,7 +36,7 @@
   border-radius: 3rem;
 }
 
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
